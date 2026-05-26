@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orange Soda - 3D Label Designer</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="logo">
+      <span class="logo-icon">🍊</span>
+      <div>
+        <h1>Orange Soda</h1>
+        <p class="subtitle">3D Label Designer</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button id="save-btn">💾 Save</button>
+      <label id="load-label" class="header-btn">📂 Load<input type="file" id="load-input" accept=".json" hidden></label>
+      <button id="export-btn">📷 Export PNG</button>
+      <button id="export-model-btn">📦 Export GLB</button>
+    </div>
+  </header>
+  <main>
+    <div id="viewport"></div>
+    <div id="panel">
+      <section>
+        <h3>Container</h3>
+        <div class="shape-toggle">
+          <button class="shape-btn active" data-shape="bottle">
+            <span class="shape-icon">🍾</span> Bottle
+          </button>
+          <button class="shape-btn" data-shape="can">
+            <span class="shape-icon">🥫</span> Can
+          </button>
+        </div>
+        <div class="field">
+          <label for="import-glb">Import GLB</label>
+          <input type="file" id="import-glb" accept=".glb,.gltf">
+        </div>
+        <button id="reset-shape-btn" class="shape-btn" style="width:100%">↩ Use Built-in</button>
+      </section>
+      <section>
+        <h3>Label Design</h3>
+        <div class="field">
+          <label for="brand-name">Brand Name</label>
+          <input type="text" id="brand-name" value="Orange Soda">
+          <select id="font-brand">
+            <option value="Arial Black">Arial Black</option>
+            <option value="Impact">Impact</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Trebuchet MS">Trebuchet MS</option>
+            <option value="Courier New">Courier New</option>
+            <option value="Comic Sans MS">Comic Sans MS</option>
+            <option value="Arial">Arial</option>
+            <option value="Tahoma">Tahoma</option>
+            <option value="Palatino Linotype">Palatino Linotype</option>
+          </select>
+          <label>Size <span id="brand-size-val">1.0</span></label>
+          <input type="range" id="brand-size" min="0.3" max="2.0" step="0.1" value="1.0">
+          <label>X <span id="brand-x-val">50</span></label>
+          <input type="range" id="brand-x" min="0" max="100" value="50">
+          <label>Y <span id="brand-y-val">38</span></label>
+          <input type="range" id="brand-y" min="0" max="100" value="38">
+        </div>
+        <div class="field">
+          <label for="tagline">Tagline</label>
+          <input type="text" id="tagline" value="Zestiest Drink Around!">
+          <select id="font-tagline">
+            <option value="Arial Black">Arial Black</option>
+            <option value="Impact">Impact</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Trebuchet MS">Trebuchet MS</option>
+            <option value="Courier New">Courier New</option>
+            <option value="Comic Sans MS">Comic Sans MS</option>
+            <option value="Arial">Arial</option>
+            <option value="Tahoma">Tahoma</option>
+            <option value="Palatino Linotype">Palatino Linotype</option>
+          </select>
+          <label>Size <span id="tagline-size-val">1.0</span></label>
+          <input type="range" id="tagline-size" min="0.3" max="2.0" step="0.1" value="1.0">
+          <label>X <span id="tagline-x-val">50</span></label>
+          <input type="range" id="tagline-x" min="0" max="100" value="50">
+          <label>Y <span id="tagline-y-val">55</span></label>
+          <input type="range" id="tagline-y" min="0" max="100" value="55">
+        </div>
+        <div class="color-row">
+          <div class="field color-field">
+            <label for="bg-color">Background</label>
+            <input type="color" id="bg-color" value="#ff6600">
+          </div>
+          <div class="field color-field">
+            <label for="text-color">Text</label>
+            <input type="color" id="text-color" value="#ffffff">
+          </div>
+        </div>
+      </section>
+      <section>
+        <h3>Images</h3>
+        <p class="section-note">Images appear above all other content on your label</p>
+        <button id="add-image-btn">+ Add Image</button>
+        <div id="image-list"></div>
+      </section>
+      <section>
+        <h3>Nutrition Facts</h3>
+        <div class="field">
+          <label>
+            <input type="checkbox" id="nutrition-toggle"> Show on label
+          </label>
+        </div>
+        <div class="nf-grid">
+          <div><label>Serving Size</label><input class="nf-input" data-field="servingSize" value="12 oz"></div>
+          <div><label>Servings</label><input class="nf-input" data-field="servingsPerContainer" value="1"></div>
+          <div><label>Calories</label><input class="nf-input" data-field="calories" value="150"></div>
+          <div><label>Total Fat</label><input class="nf-input" data-field="totalFat" value="0g"></div>
+          <div><label>Sodium</label><input class="nf-input" data-field="sodium" value="35mg"></div>
+          <div><label>Total Carb</label><input class="nf-input" data-field="totalCarb" value="39g"></div>
+          <div><label>Sugars</label><input class="nf-input" data-field="sugars" value="39g"></div>
+          <div><label>Protein</label><input class="nf-input" data-field="protein" value="0g"></div>
+        </div>
+        <div class="field">
+          <label>X <span id="nutrition-x-val">50</span></label>
+          <input type="range" id="nutrition-x" min="0" max="100" value="50">
+        </div>
+        <div class="field">
+          <label>Y <span id="nutrition-y-val">0</span></label>
+          <input type="range" id="nutrition-y" min="0" max="100" value="0">
+        </div>
+        <div class="field">
+          <label>Width <span id="nutrition-w-val">70</span></label>
+          <input type="range" id="nutrition-w" min="10" max="100" value="70">
+        </div>
+        <div class="field">
+          <label>Text Size <span id="nutrition-text-val">1.0</span></label>
+          <input type="range" id="nutrition-text-size" min="0.3" max="2.0" step="0.1" value="1.0">
+        </div>
+      </section>
+      <section>
+        <h3>Ingredients</h3>
+        <div class="field">
+          <label>
+            <input type="checkbox" id="ingr-toggle"> Show on label
+          </label>
+        </div>
+        <textarea id="ingr-text" rows="3" placeholder="Carbonated water, sugar, citric acid..."></textarea>
+      </section>
+      <section>
+        <h3>Templates</h3>
+        <div id="template-grid"></div>
+      </section>
+    </div>
+  </main>
+</div>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+<script src="js/templates.js"></script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
